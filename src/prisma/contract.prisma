@@ -1,0 +1,67 @@
+// use prisma-8
+
+model Profile {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String
+  links       Link[]
+  skills      Skill[]
+  experience  Experience[]
+  projects    Project[]
+}
+
+model Link {
+  id        Int     @id @default(autoincrement())
+  label     String
+  url       String
+  sortOrder Int
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId])
+}
+
+model Skill {
+  id        Int     @id @default(autoincrement())
+  name      String
+  sortOrder Int
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId])
+}
+
+model Experience {
+  id           Int           @id @default(autoincrement())
+  company      String
+  position     String
+  startDate    DateString
+  endDate      DateString?
+  sortOrder    Int
+  profileId    Int
+  profile      Profile       @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  achievements Achievement[]
+
+  @@index([profileId])
+}
+
+model Achievement {
+  id           Int        @id @default(autoincrement())
+  description  String
+  sortOrder    Int
+  experienceId Int
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  @@index([experienceId])
+}
+
+model Project {
+  id        Int     @id @default(autoincrement())
+  name      String
+  url       String
+  sortOrder Int
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@index([profileId])
+}

@@ -1,0 +1,658 @@
+[
+  {
+    "id": "schema.public",
+    "label": "Create schema \"public\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Create schema \"public\"",
+        "sql": "CREATE SCHEMA IF NOT EXISTS \"public\"",
+        "params": []
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "table.Achievement",
+    "label": "Create table \"Achievement\"",
+    "summary": "Creates table \"Achievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Achievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Achievement\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Achievement\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Achievement\"",
+        "sql": "CREATE TABLE \"public\".\"Achievement\" (\n  \"description\" text NOT NULL,\n  \"experienceId\" int4 NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"sortOrder\" int4 NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Achievement\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Achievement\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.Experience",
+    "label": "Create table \"Experience\"",
+    "summary": "Creates table \"Experience\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Experience"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Experience\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Experience\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Experience\"",
+        "sql": "CREATE TABLE \"public\".\"Experience\" (\n  \"company\" text NOT NULL,\n  \"endDate\" date,\n  \"id\" SERIAL NOT NULL,\n  \"position\" text NOT NULL,\n  \"profileId\" int4 NOT NULL,\n  \"sortOrder\" int4 NOT NULL,\n  \"startDate\" date NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Experience\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Experience\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.Link",
+    "label": "Create table \"Link\"",
+    "summary": "Creates table \"Link\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Link"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Link\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Link\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Link\"",
+        "sql": "CREATE TABLE \"public\".\"Link\" (\n  \"id\" SERIAL NOT NULL,\n  \"label\" text NOT NULL,\n  \"profileId\" int4 NOT NULL,\n  \"sortOrder\" int4 NOT NULL,\n  \"url\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Link\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Link\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.Profile",
+    "label": "Create table \"Profile\"",
+    "summary": "Creates table \"Profile\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Profile"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Profile\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Profile\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Profile\"",
+        "sql": "CREATE TABLE \"public\".\"Profile\" (\n  \"description\" text NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"name\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Profile\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Profile\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.Project",
+    "label": "Create table \"Project\"",
+    "summary": "Creates table \"Project\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Project"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Project\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Project\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Project\"",
+        "sql": "CREATE TABLE \"public\".\"Project\" (\n  \"id\" SERIAL NOT NULL,\n  \"name\" text NOT NULL,\n  \"profileId\" int4 NOT NULL,\n  \"sortOrder\" int4 NOT NULL,\n  \"url\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Project\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Project\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.Skill",
+    "label": "Create table \"Skill\"",
+    "summary": "Creates table \"Skill\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Skill"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Skill\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Skill\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Skill\"",
+        "sql": "CREATE TABLE \"public\".\"Skill\" (\n  \"id\" SERIAL NOT NULL,\n  \"name\" text NOT NULL,\n  \"profileId\" int4 NOT NULL,\n  \"sortOrder\" int4 NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Skill\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Skill\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.Achievement.Achievement_experienceId_idx_d593f48a",
+    "label": "Create index \"Achievement_experienceId_idx_d593f48a\" on \"Achievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "Achievement_experienceId_idx_d593f48a",
+        "table": "Achievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"Achievement_experienceId_idx_d593f48a\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Achievement_experienceId_idx_d593f48a\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"Achievement_experienceId_idx_d593f48a\"",
+        "sql": "CREATE INDEX \"Achievement_experienceId_idx_d593f48a\" ON \"public\".\"Achievement\" (\"experienceId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"Achievement_experienceId_idx_d593f48a\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Achievement_experienceId_idx_d593f48a\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.Experience.Experience_profileId_idx_d9cdfcaf",
+    "label": "Create index \"Experience_profileId_idx_d9cdfcaf\" on \"Experience\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "Experience_profileId_idx_d9cdfcaf",
+        "table": "Experience"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"Experience_profileId_idx_d9cdfcaf\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Experience_profileId_idx_d9cdfcaf\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"Experience_profileId_idx_d9cdfcaf\"",
+        "sql": "CREATE INDEX \"Experience_profileId_idx_d9cdfcaf\" ON \"public\".\"Experience\" (\"profileId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"Experience_profileId_idx_d9cdfcaf\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Experience_profileId_idx_d9cdfcaf\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.Link.Link_profileId_idx_d9cdfcaf",
+    "label": "Create index \"Link_profileId_idx_d9cdfcaf\" on \"Link\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "Link_profileId_idx_d9cdfcaf",
+        "table": "Link"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"Link_profileId_idx_d9cdfcaf\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Link_profileId_idx_d9cdfcaf\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"Link_profileId_idx_d9cdfcaf\"",
+        "sql": "CREATE INDEX \"Link_profileId_idx_d9cdfcaf\" ON \"public\".\"Link\" (\"profileId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"Link_profileId_idx_d9cdfcaf\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Link_profileId_idx_d9cdfcaf\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.Project.Project_profileId_idx_d9cdfcaf",
+    "label": "Create index \"Project_profileId_idx_d9cdfcaf\" on \"Project\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "Project_profileId_idx_d9cdfcaf",
+        "table": "Project"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"Project_profileId_idx_d9cdfcaf\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Project_profileId_idx_d9cdfcaf\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"Project_profileId_idx_d9cdfcaf\"",
+        "sql": "CREATE INDEX \"Project_profileId_idx_d9cdfcaf\" ON \"public\".\"Project\" (\"profileId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"Project_profileId_idx_d9cdfcaf\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Project_profileId_idx_d9cdfcaf\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.Skill.Skill_profileId_idx_d9cdfcaf",
+    "label": "Create index \"Skill_profileId_idx_d9cdfcaf\" on \"Skill\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "Skill_profileId_idx_d9cdfcaf",
+        "table": "Skill"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"Skill_profileId_idx_d9cdfcaf\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Skill_profileId_idx_d9cdfcaf\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"Skill_profileId_idx_d9cdfcaf\"",
+        "sql": "CREATE INDEX \"Skill_profileId_idx_d9cdfcaf\" ON \"public\".\"Skill\" (\"profileId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"Skill_profileId_idx_d9cdfcaf\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Skill_profileId_idx_d9cdfcaf\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.Achievement.Achievement_experienceId_fkey",
+    "label": "Add foreign key \"Achievement_experienceId_fkey\" on \"Achievement\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "Achievement_experienceId_fkey",
+        "table": "Achievement"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"Achievement_experienceId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Achievement_experienceId_fkey",
+          "public",
+          "\"public\".\"Achievement\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"Achievement_experienceId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"Achievement\"\nADD CONSTRAINT \"Achievement_experienceId_fkey\"\nFOREIGN KEY (\"experienceId\")\nREFERENCES \"public\".\"Experience\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"Achievement_experienceId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Achievement_experienceId_fkey",
+          "public",
+          "\"public\".\"Achievement\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.Experience.Experience_profileId_fkey",
+    "label": "Add foreign key \"Experience_profileId_fkey\" on \"Experience\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "Experience_profileId_fkey",
+        "table": "Experience"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"Experience_profileId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Experience_profileId_fkey",
+          "public",
+          "\"public\".\"Experience\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"Experience_profileId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"Experience\"\nADD CONSTRAINT \"Experience_profileId_fkey\"\nFOREIGN KEY (\"profileId\")\nREFERENCES \"public\".\"Profile\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"Experience_profileId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Experience_profileId_fkey",
+          "public",
+          "\"public\".\"Experience\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.Link.Link_profileId_fkey",
+    "label": "Add foreign key \"Link_profileId_fkey\" on \"Link\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "Link_profileId_fkey",
+        "table": "Link"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"Link_profileId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Link_profileId_fkey",
+          "public",
+          "\"public\".\"Link\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"Link_profileId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"Link\"\nADD CONSTRAINT \"Link_profileId_fkey\"\nFOREIGN KEY (\"profileId\")\nREFERENCES \"public\".\"Profile\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"Link_profileId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Link_profileId_fkey",
+          "public",
+          "\"public\".\"Link\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.Project.Project_profileId_fkey",
+    "label": "Add foreign key \"Project_profileId_fkey\" on \"Project\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "Project_profileId_fkey",
+        "table": "Project"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"Project_profileId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Project_profileId_fkey",
+          "public",
+          "\"public\".\"Project\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"Project_profileId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"Project\"\nADD CONSTRAINT \"Project_profileId_fkey\"\nFOREIGN KEY (\"profileId\")\nREFERENCES \"public\".\"Profile\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"Project_profileId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Project_profileId_fkey",
+          "public",
+          "\"public\".\"Project\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.Skill.Skill_profileId_fkey",
+    "label": "Add foreign key \"Skill_profileId_fkey\" on \"Skill\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "Skill_profileId_fkey",
+        "table": "Skill"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"Skill_profileId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Skill_profileId_fkey",
+          "public",
+          "\"public\".\"Skill\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"Skill_profileId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"Skill\"\nADD CONSTRAINT \"Skill_profileId_fkey\"\nFOREIGN KEY (\"profileId\")\nREFERENCES \"public\".\"Profile\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"Skill_profileId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Skill_profileId_fkey",
+          "public",
+          "\"public\".\"Skill\""
+        ]
+      }
+    ]
+  }
+]
