@@ -2,7 +2,7 @@
 
 Backend на NestJS, GraphQL и PostgreSQL. При первом запуске миграции применяются сами, база заполняется данными из [`src/prisma/seed-data.ts`](src/prisma/seed-data.ts). Повторный старт данные не дублирует.
 
-API визитки есть в дереве. Интерактивная схема — Apollo Sandbox. В git этот код не закоммичен.
+API визитки есть в дереве. Интерактивная схема — Apollo Sandbox.
 
 ## Запуск
 

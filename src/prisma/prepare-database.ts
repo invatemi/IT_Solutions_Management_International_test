@@ -19,22 +19,12 @@ export type CommandRunner = (
   cwd: string,
 ) => Promise<CommandResult>;
 
-/**
- * Возвращает путь к исполняемому файлу Prisma CLI.
- * @return путь к prisma.js
- */
 export function prismaCliPath(): string {
   const packageJsonPath = require.resolve('prisma/package.json');
   const pkg = require(packageJsonPath) as { bin: { prisma: string } };
   return path.join(path.dirname(packageJsonPath), pkg.bin.prisma);
 }
 
-/**
- * Применяет миграции и заполняет пустую базу до приёма запросов.
- * @param db клиент базы данных
- * @param databaseUrl строка подключения
- * @param run запуск команды миграции
- */
 export async function prepareDatabase(
   db: Db,
   databaseUrl: string,

@@ -2,9 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { HealthIndicatorService } from '@nestjs/terminus';
 import { PrismaService } from '../../prisma/service/index.js';
 
-/**
- * Проверка доступности базы данных.
- */
 @Injectable()
 export class PrismaHealthIndicator {
   constructor(
@@ -12,11 +9,6 @@ export class PrismaHealthIndicator {
     private readonly prisma: PrismaService,
   ) {}
 
-  /**
-   * Проверяет доступность базы данных.
-   * @param key имя индикатора
-   * @return результат проверки
-   */
   isHealthy(key: string) {
     return this.healthIndicatorService
       .check(key)

@@ -32,12 +32,6 @@ function redactDatabaseUrl(value: unknown): string {
   return text.split(url).join('[redacted]');
 }
 
-/**
- * Форматирует ошибку GraphQL для клиента.
- * @param formattedError исходная ошибка
- * @param error перехваченная ошибка
- * @return ошибка для клиента
- */
 export function formatGraphqlError(
   formattedError: GraphQLFormattedError,
   error: unknown,
@@ -63,10 +57,6 @@ export function formatGraphqlError(
   };
 }
 
-/**
- * Возвращает настройки GraphQL.
- * @return конфигурация Apollo
- */
 export function graphqlOptions(): ApolloDriverConfig {
   return {
     driver: ApolloDriver,

@@ -8,9 +8,6 @@ import { HealthModule } from './health/modules/index.js';
 import { PrismaModule } from './prisma/modules/index.js';
 import { ProfileModule } from './profile/modules/index.js';
 
-/**
- * Корневой модуль приложения.
- */
 @Module({
   imports: [
     ConfigModule.forRoot({

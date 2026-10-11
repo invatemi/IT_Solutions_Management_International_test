@@ -1,8 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
-/**
- * Место работы.
- */
 @ObjectType()
 export class Experience {
   id!: number;

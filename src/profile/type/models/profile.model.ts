@@ -4,9 +4,6 @@ import { Link } from './link.model.js';
 import { Project } from './project.model.js';
 import { Skill } from './skill.model.js';
 
-/**
- * Визитка.
- */
 @ObjectType()
 export class Profile {
   id!: number;

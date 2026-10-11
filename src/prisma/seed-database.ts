@@ -1,10 +1,6 @@
 import type { Db } from './db.js';
 import { profileSeed } from './seed-data.js';
 
-/**
- * Записывает визитку, если база ещё пустая.
- * @param db клиент базы данных
- */
 export async function seedIfEmpty(db: Db): Promise<void> {
   const existing = await db.orm.public.Profile.first();
   if (existing) {

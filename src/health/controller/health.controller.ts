@@ -2,9 +2,6 @@ import { Controller, Get } from '@nestjs/common';
 import { HealthCheck, HealthCheckService } from '@nestjs/terminus';
 import { PrismaHealthIndicator } from '../service/index.js';
 
-/**
- * Проверка доступности сервиса.
- */
 @Controller('health')
 export class HealthController {
   constructor(
@@ -12,10 +9,6 @@ export class HealthController {
     private readonly database: PrismaHealthIndicator,
   ) {}
 
-  /**
-   * Проверяет доступность сервиса.
-   * @return результат проверки
-   */
   @Get()
   @HealthCheck()
   check() {
